@@ -1,0 +1,54 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+function run_hook() {
+  local path="$OPENSHIFT_REPO_DIR/.openshift/action_hooks/$1"
+  if [ -x "$path" ]
+  then
+    "$path"
+  else
+    echo "Warning: missing or not executable script .openshift/action_hooks/$1"
+    return 0
+  fi
+}
+
+function start() {
+    echo "Starting Worker cartridge"
+    run_hook start |& /usr/bin/logshifter -tag worker &
+}
+
+function stop() {
+    echo "Stopping Worker cartridge"
+    run_hook stop
+}
+
+function restart() {
+    stop
+    start |& /usr/bin/logshifter -tag worker &
+}
+
+function status() {
+    run_hook status
+}
+
+function reload() {
+    client_result "Reloading Worker cart"
+    restart
+}
+
+function tidy() {
+  client_message "Emptying worker logs in dir: $OPENSHIFT_LOG_DIR"
+  shopt -s dotglob
+  rm -rf $OPENSHIFT_LOG_DIR/worker.log*
+}
+
+case "$1" in
+  start)     start ;;
+  stop)      stop ;;
+  restart)   restart ;;
+  status)    status ;;
+  reload)    reload ;;
+  tidy)      tidy ;;
+  *)         exit 0
+esac

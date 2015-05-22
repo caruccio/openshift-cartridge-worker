@@ -1,0 +1,37 @@
+---
+Name: worker
+Cartridge-Short-Name: WORKER
+Display-Name: Worker 0.1
+Description: Experimenta cartidge to run background jobs only.
+Version: '0.1'
+License: ASL 2.0
+License-Url: http://www.apache.org/licenses/LICENSE-2.0.txt
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: getup
+Vendor: getup
+Categories:
+- web_framework
+Group-Overrides:
+- components:
+  - web-proxy
+Provides:
+- worker
+- worker-0.1
+Publishes: 
+Subscribes:
+  set-env:
+    Type: ENV:*
+    Required: false
+Scaling:
+  Min: 1
+  Max: -1
+Endpoints:
+- Private-IP-Name:   IP
+  Private-Port-Name: PORT
+  Private-Port:      8080
+  Public-Port-Name:  PROXY_PORT
+  Protocols:
+  - http
+  Mappings:
+  - Frontend: ''
+    Backend: ''

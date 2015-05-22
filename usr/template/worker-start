@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo $$ > $OPENSHIFT_DATA_DIR/worker.pid
+
+i=1
+while sleep 1; do
+	echo `date`: loop $i
+	let i+=1
+done

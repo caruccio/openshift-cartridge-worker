@@ -1,0 +1,1 @@
+# OpenShift Worker Cartridge

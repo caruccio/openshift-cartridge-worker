@@ -1,0 +1,15 @@
+#!/bin/bash
+
+PIDFILE="$OPENSHIFT_DATA_DIR/worker.pid"
+
+if [ -e "$PIDFILE" ]; then
+	PID="$(<$PIDFILE)"
+
+	if [ -z "$PID" ]; then
+		echo 'Worker pid file is empty'
+	else
+		kill $PID
+	fi
+else
+	echo "Worker is stopped"
+fi

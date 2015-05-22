@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Test either your worker is running.
+#
+[ -x $OPENSHIFT_REPO_DIR/worker-status ] && exec $OPENSHIFT_REPO_DIR/worker-status

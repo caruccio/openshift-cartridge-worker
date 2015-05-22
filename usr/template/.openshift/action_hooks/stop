@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Stop your worker.
+#
+
+[ -x $OPENSHIFT_REPO_DIR/worker-stop ] && exec $OPENSHIFT_REPO_DIR/worker-stop
